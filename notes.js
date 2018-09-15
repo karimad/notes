@@ -1,7 +1,4 @@
-console.log('Starting notes.js')
-
 const fs = require('fs')
-const _ = require('lodash')
 
 const fetchNotes = () => {
     try {
@@ -39,20 +36,27 @@ const getAll = () => {
 
 const getNote = (title) => {
     const notes = fetchNotes()
-    return notes.find(note => note.title === title) || {}
+    return notes.find(note => note.title === title)
 }
 
 const removeNote = (title) => {
     const notes = fetchNotes()
-    _.remove(notes, note => note.title === title)
-    saveNotes(notes)
-    return notes
+    const filteredNotes = notes.filter(note => note.title !== title)
+    saveNotes(filteredNotes)
+    return notes.length !== filteredNotes.length
+}
+
+const logNote = (note) => {
+    console.log('---')    
+    console.log(`Title : ${note.title}`)
+    console.log(`Body : ${note.body}`)
 }
 
 module.exports = {
     addNote,
     getAll,
     getNote,
-    removeNote
+    removeNote,
+    logNote
 }
 

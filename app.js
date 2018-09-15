@@ -1,5 +1,3 @@
-console.log('Starting app.js')
-
 const fs = require('fs')
 const _ = require('lodash')
 const yargs = require('yargs')
@@ -15,8 +13,7 @@ console.log('Yargs: ', argv)
 switch (command) {
     case 'add':
         const note = notes.addNote(argv.title, argv.body)
-        const msg = note ? `Note added : ${note.title} - ${note.body}` : `${argv.title} already exists`
-        console.log(msg)
+        note ? notes.logNote(note) : console.log(`${argv.title} already exists`)
         break
     case 'list':
         const allNotes = notes.getAll()
@@ -24,11 +21,12 @@ switch (command) {
         break
     case 'read': 
         const foundNote = notes.getNote(argv.title)
-        console.log(foundNote)
+        foundNote ? notes.logNote(foundNote)  : 'Note not found'
         break
     case 'remove':
-        const updatedNotes = notes.removeNote(argv.title)
-        console.log(updatedNotes)
+        const noteRemoved = notes.removeNote(argv.title)
+        const msg = noteRemoved ? 'Note was removed' : 'Note not found' 
+        console.log(msg)
         break
     default: console.log('command not recognized'); break
 }
