@@ -1,14 +1,16 @@
 console.log('Starting notes.js')
 
 const fs = require('fs')
+const _ = require('lodash')
 
 const fetchNotes = () => {
     try {
         const notesString = fs.readFileSync('notes-data.json');
         return JSON.parse(notesString);
     }
-    catch (e) { }
-    return [];
+    catch (e) {
+        return [];
+    }
 }
 
 const saveNotes = (notes) => {
@@ -32,15 +34,19 @@ const addNote = (title, body) => {
 }
 
 const getAll = () => {
-    console.log('Getting all notes')
+    return fetchNotes()
 }
 
 const getNote = (title) => {
-    console.log('Read note', title)
+    const notes = fetchNotes()
+    return notes.find(note => note.title === title) || {}
 }
 
 const removeNote = (title) => {
-    console.log('Remove note', title)
+    const notes = fetchNotes()
+    _.remove(notes, note => note.title === title)
+    saveNotes(notes)
+    return notes
 }
 
 module.exports = {

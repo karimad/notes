@@ -19,13 +19,16 @@ switch (command) {
         console.log(msg)
         break
     case 'list':
-        notes.getAll()
+        const allNotes = notes.getAll()
+        console.log(allNotes)
         break
     case 'read': 
-        notes.getNote(argv.title)
+        const foundNote = notes.getNote(argv.title)
+        console.log(foundNote)
         break
     case 'remove':
-        notes.removeNote(argv.title)
+        const updatedNotes = notes.removeNote(argv.title)
+        console.log(updatedNotes)
         break
     default: console.log('command not recognized'); break
 }
