@@ -6,11 +6,24 @@
   "author": "karim",
   "license": "ISC",
   "dependencies": {
-    "jest": "^23.6.0",
-    "lodash": "^4.17.11",
-    "yargs": "^4.7.1"
+    "jest": "latest",
+    "jest-cli": "latest",
+    "lodash": "latest",
+    "yargs": "latest"
   },
   "scripts": {
-    "start": "node app.js --help"
+    "start": "node app.js --help",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleNameMapper": {
+      "fs": "<rootDir>/node"
+    },
+    "moduleDirectories": [
+      ".",
+      "test"
+    ]
   }
 }
